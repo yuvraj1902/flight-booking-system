@@ -3,7 +3,7 @@ const {createRoute,getAllRoute,deleteRoute}=require("../services/routes.service"
 
 
 const createRoutes=(req,res)=>{
-    createRoute(req.body,(err,callBack,resp)=>{
+    createRoute(req.body,(err,result,resp)=>{
         return res.status(resp).json(err ? err:result);
     })
 }
@@ -17,7 +17,6 @@ const getAllRoutes = (req, res) => {
 
 const deleteRoutes = (req, res) => {
     const id = Number.parseInt(req.query.id);
-    console.log(typeof id);
     if (!id || typeof id !== "number") {
         return res.status(400).json({ error: "Please enter routeId" });
     } else {
