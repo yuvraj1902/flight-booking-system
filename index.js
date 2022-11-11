@@ -36,3 +36,6 @@ app.listen(PORT,()=>{
 
  let Route=db.routes;
  Route.sync({alter:true})
+
+
+ "merging only"
