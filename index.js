@@ -5,6 +5,7 @@ const userRoute=require('./app/routes/user.route');
 const routeRouter=require('./app/routes/routes.route')
 const flightRouter=require('./app/routes/flight.route')
 const couponRouter=require('./app/routes/coupon.route')
+const bookingRouter=require('./app/routes/booking.route')
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app=express();
@@ -26,6 +27,7 @@ app.use("/api",userRoute);
 app.use("/api",routeRouter);
 app.use("/api",flightRouter);
 app.use("/api",couponRouter);
+app.use("/api",bookingRouter);
 
 const PORT=process.env.PORT;
 app.listen(PORT,()=>{

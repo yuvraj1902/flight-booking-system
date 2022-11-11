@@ -16,6 +16,7 @@ db.users=require("./user.model")(sequelize,Sequelize)
 db.routes=require("./routes.model")(sequelize,Sequelize)
 db.flights=require("./flight.model")(sequelize,Sequelize)
 db.coupons=require("./coupon.model")(sequelize,Sequelize)
+db.bookings=require('./booking.model')(sequelize,Sequelize)
 
 db.routes.hasOne(db.flights, {
     foreignKey: {
@@ -24,6 +25,24 @@ db.routes.hasOne(db.flights, {
 });
 
 db.flights.belongsTo(db.routes);
+
+
+db.coupons.hasOne(db.bookings);
+db.bookings.belongsTo(db.coupons);
+
+db.users.hasOne(db.bookings, {
+    foreignKey: {
+        allowNull: false,
+    },
+})
+db.bookings.belongsTo(db.users);
+
+db.flights.hasOne(db.bookings, {
+    foreignKey: {
+        allowNull: false,
+    },
+})
+db.bookings.belongsTo(db.flights);
 
 
 sequelize.sync({alter:true});

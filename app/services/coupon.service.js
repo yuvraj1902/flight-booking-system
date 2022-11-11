@@ -1,6 +1,7 @@
 
 const db=require('../models/connection')
 const Coupon =db.coupons;
+const Booking=db.bookings;
 
 
 const getAllCoupon = async (callback) => {
@@ -29,4 +30,47 @@ const createCoupon = async (data, callback) => {
     }
 };
 
-module.exports={createCoupon,getAllCoupon}
+const applyCoupon = async (data, callback) => {
+    
+        const bookingData = await Booking.findOne({
+            where: {
+                id: data.bookingId,
+            },
+        });
+
+        if (!bookingData) {
+            return callback({ error: "Wrong booking id" }, null, 400);
+        }
+
+        const couponData = await Coupon.findOne({
+            where: {
+                id: data.couponId,
+            },
+        });
+
+        if (!couponData) {
+            return callback({ error: "Invalid coupon id" }, null, 400);
+        }
+
+        const appliedCoupon = await Booking.update(
+            {
+                couponId: data.couponId,
+            },
+            {
+                where: {
+                    id: data.bookingId,
+                },
+            }
+        );
+
+        if (appliedCoupon) {
+            return callback(
+                null,
+                { message: "Discount Applied Successfully" },
+                200
+            );
+        }
+
+};
+
+module.exports={createCoupon,getAllCoupon,applyCoupon}
