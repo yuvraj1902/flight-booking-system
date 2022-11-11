@@ -46,8 +46,13 @@ const login=async(res,data,callback)=>{
         if(!ispasswordMatch){
             return callback({message:"password is not correct"},null,400);
         }
-       
-        const token=jwt.sign(data,process.env.SECRET);
+        const obj={
+            id:userData.dataValues.id,
+            name:userData.dataValues.name,
+            email:userData.dataValues.email,
+            type:userData.dataValues.type
+        }
+        const token=jwt.sign(obj,process.env.SECRET);
         res.cookie("token",token,{expires:new Date(new Date().getTime()+360*60*1000),httpOnly:true});
         return callback({ message: "Login successfully" ,token:token}, null, 201);
       } catch (error) {

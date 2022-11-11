@@ -4,7 +4,7 @@ const admin = {
 }
 
 const isAdmin = (req, res, next) => {
-    //console.log(req.auth);
+    console.log(req.auth);
     if (req.auth.email == admin.email ) {
         next();
     } else {
