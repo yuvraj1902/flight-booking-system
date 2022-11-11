@@ -3,7 +3,7 @@ const {createRoute,getAllRoute,deleteRoute}=require("../services/routes.service"
 
 
 const createRoutes=(req,res)=>{
-    createRoute(req.body,(err,result,resp)=>{
+    createRoute({...req.body},(err,result,resp)=>{
         return res.status(resp).json(err ? err:result);
     })
 }

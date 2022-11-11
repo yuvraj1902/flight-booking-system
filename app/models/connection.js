@@ -14,6 +14,18 @@ db.sequelize=sequelize;
 
 db.users=require("./user.model")(sequelize,Sequelize)
 db.routes=require("./routes.model")(sequelize,Sequelize)
+db.flights=require("./flight.model")(sequelize,Sequelize)
+db.coupons=require("./coupon.model")(sequelize,Sequelize)
+
+db.routes.hasOne(db.flights, {
+    foreignKey: {
+        allowNull: false,
+    },
+});
+
+db.flights.belongsTo(db.routes);
 
 
-  module.exports=db;
+sequelize.sync({alter:true});
+
+ module.exports=db;
