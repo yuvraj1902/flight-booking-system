@@ -1,5 +1,5 @@
 const {register,login,allUsers,singleUser} = require("../services/user.service");
-// create user api
+
 const createUser = (req, res) => {
     register({...req.body}, (err, result, status_code) => {
         return res.status(status_code).json(err ? err : result);

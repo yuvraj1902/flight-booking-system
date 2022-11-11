@@ -3,6 +3,8 @@ const dotenv=require('dotenv');
 const db=require('./app/models/connection')
 const userRoute=require('./app/routes/user.route');
 const routeRouter=require('./app/routes/routes.route')
+const flightRouter=require('./app/routes/flight.route')
+const couponRouter=require('./app/routes/coupon.route')
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app=express();
@@ -22,6 +24,8 @@ app.use(cors());
 app.use(cookieParser());
 app.use("/api",userRoute);
 app.use("/api",routeRouter);
+app.use("/api",flightRouter);
+app.use("/api",couponRouter);
 
 const PORT=process.env.PORT;
 app.listen(PORT,()=>{
@@ -29,13 +33,6 @@ app.listen(PORT,()=>{
 })
 
 
-//sync user model in database from model
- let User = db.users;
- User.sync({ alter: true })
-
-
- let Route=db.routes;
- Route.sync({alter:true})
 
 
  
