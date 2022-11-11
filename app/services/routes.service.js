@@ -1,4 +1,6 @@
-const Route=require('../models/routes.model')
+
+const db =require("../models/connection")
+const Route=db.routes;
 
 const createRoute=async(data,callback)=>{
 
